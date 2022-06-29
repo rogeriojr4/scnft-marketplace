@@ -9,7 +9,20 @@ module.exports = {
     "./src/**/*.tsx",
   ],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        'contrast': '#FDC500',
+        'contrast-secondary': '#FF8896',
+      },
+      fontFamily: {
+        sans: ['Montserrat', 'sans-serif'],
+        serif: ['Montserrat', 'sans-serif'],
+      },
+      fontSize: {
+        'lg': '35px',
+        'md': '20px'
+      }
+    },
   },
   plugins: [],
 };
