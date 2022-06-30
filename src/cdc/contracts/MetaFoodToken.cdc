@@ -1,5 +1,14 @@
 pub contract MetaFoodToken {
 
+    // Event that is emitted when tokens are withdrawn from a Vault
+    pub event TokensWithdrawn(amount: UFix64, from: Address?)
+
+    // Event that is emitted when tokens are deposited to a Vault
+    pub event TokensDeposited(amount: UFix64, to: Address?)
+
+    // Event that is emitted when new tokens are minted
+    pub event TokensMinted(amount: UFix64)
+
     // Total supply of all tokens in existence.
     pub var totalSupply: UFix64
 
@@ -94,6 +103,7 @@ pub contract MetaFoodToken {
         // elsewhere.
         //
         pub fun withdraw(amount: UFix64): @Vault {
+            emit TokensWithdrawn(amount: amount, from: self.owner?.address)
             self.balance = self.balance - amount
             return <-create Vault(balance: amount)
         }
@@ -107,6 +117,7 @@ pub contract MetaFoodToken {
         // was a temporary holder of the tokens. The Vault's balance has
         // been consumed and therefore can be destroyed.
         pub fun deposit(from: @Vault) {
+            emit TokensDeposited(amount: from.balance, to: self.owner?.address)
             self.balance = self.balance + from.balance
             destroy from
         }

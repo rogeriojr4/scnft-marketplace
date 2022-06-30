@@ -1,36 +1,51 @@
 import Nullstack from "nullstack";
+import SCLogo from "../assets/SCLogo";
 import SigninIcon from "../assets/signinIcon";
 
 class Header extends Nullstack {
-  renderLogo() {
-    return (
-      <div class="text-center font-extralight">
-        <div class="font-bold text-xs">NFTS FOR</div>
-        STARVING
-        <br />
-        CHILDREN
-      </div>
-    );
-  }
-
   renderMenu({ router }) {
     const active = "font-bold border-b-2 border-contrast";
 
     return (
       <nav class="flex gap-4 font-extralight h-[30px]">
-        <a class={router.url.length === 1 ? active : ""} href="/">
+        <a
+          class={
+            router.url.length === 1
+              ? active
+              : "hover:underline hover:underline-offset-1"
+          }
+          href="/"
+        >
           Home
         </a>
-        <a class={router.url.includes("/wtf") ? active : ""} href="/wtf">
+        <a
+          class={
+            router.url.includes("/wtf")
+              ? active
+              : "hover:underline hover:underline-offset-1"
+          }
+          href="/wtf"
+        >
           WTF?
         </a>
         <a
-          class={router.url.includes("/explore") ? active : ""}
+          class={
+            router.url.includes("/explore")
+              ? active
+              : "hover:underline hover:underline-offset-1"
+          }
           href="/explore"
         >
           Explore
         </a>
-        <a class={router.url.includes("/tokens") ? active : ""} href="/tokens">
+        <a
+          class={
+            router.url.includes("/tokens")
+              ? active
+              : "hover:underline hover:underline-offset-1"
+          }
+          href="/tokens"
+        >
           MetaFood's
         </a>
         <div class="flex items-start gap-1">
@@ -44,7 +59,7 @@ class Header extends Nullstack {
   render() {
     return (
       <header class="mb-20 flex w-full justify-between">
-        <Logo />
+        <SCLogo />
         <Menu />
       </header>
     );

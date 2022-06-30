@@ -3,6 +3,7 @@ import "./tailwind.css";
 import "./input.css";
 import Home from "./Pages/Home";
 import Header from "./Elements/Header";
+import Footer from "./Elements/Footer";
 
 class Application extends Nullstack {
   renderHead() {
@@ -21,12 +22,15 @@ class Application extends Nullstack {
   render() {
     return (
       <main
-        class="font-sans bg-black px-64 py-10 text-white"
+        class="font-sans bg-black text-white"
         style="text-shadow: 0px 0px 20px rgba(255, 255, 255, 0.7)"
       >
-        <Head />
-        <Header />
-        <Home route="/" />
+        <div class="px-64 py-10">
+          <Head />
+          <Header />
+          <Home route="/" />
+        </div>
+        <Footer />
       </main>
     );
   }

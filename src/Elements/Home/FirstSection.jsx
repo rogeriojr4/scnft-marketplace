@@ -1,10 +1,11 @@
 import Nullstack from "nullstack";
+import ImageWithBorder from "../ImageWithBorder";
 import StyledButton from "../StyledButton";
 
 class FirstSection extends Nullstack {
   render() {
     return (
-      <section class="flex w-full justify-between">
+      <section class="flex w-full justify-between items-center">
         <div class="max-w-[470px]">
           <h1 class="text-lg font-bold">
             Your kindness can make the world of a difference for a
@@ -20,7 +21,7 @@ class FirstSection extends Nullstack {
           </div>
         </div>
         <div>
-          Alo
+          <ImageWithBorder />
         </div>
       </section>
     );
