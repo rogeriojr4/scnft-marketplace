@@ -58,8 +58,10 @@ class Header extends Nullstack {
 
   render() {
     return (
-      <header class="mb-20 flex w-full justify-between">
-        <SCLogo />
+      <header class="flex w-full justify-between py-10 px-56">
+        <a href="/">
+          <SCLogo />
+        </a>
         <Menu />
       </header>
     );

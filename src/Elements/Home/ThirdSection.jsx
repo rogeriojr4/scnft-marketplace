@@ -13,7 +13,7 @@ class ThirdSection extends Nullstack {
 
   render() {
     return (
-      <section class="flex flex-col items-center">
+      <section class="px-64 flex flex-col items-center">
         <h1 class="text-lg font-bold text-center max-w-xl">
           Don't let these weary children lose their
           <span class="bg-contrast text-black"> last shreds of hope</span>{" "}

@@ -4,7 +4,7 @@ import StyledButton from "../StyledButton";
 class LastSection extends Nullstack {
   render() {
     return (
-      <section class="w-full flex items-center flex-col gap-4">
+      <section class="px-64 w-full flex items-center flex-col gap-4 mt-[-100px] py-64 bg-[url(/assets/background/grid.svg)] bg-cover">
         <h1 class="text-lg font-bold">
           With <span class="text-black bg-contrast">great power</span> comes
           non-fungibility
@@ -14,8 +14,8 @@ class LastSection extends Nullstack {
           to change the world... by minting a few NFTs.
         </h2>
         <div class="mt-6">
-          <StyledButton secondary width="full">
-            BUY A NFT TO A STARVING CHILD
+          <StyledButton secondary>
+            BUY AN NFT TO A STARVING CHILD
           </StyledButton>
         </div>
       </section>

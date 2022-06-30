@@ -5,7 +5,7 @@ import StyledButton from "../StyledButton";
 class FirstSection extends Nullstack {
   render() {
     return (
-      <section class="flex w-full justify-between items-center">
+      <section class="flex w-full justify-between items-center px-64 py-8">
         <div class="max-w-[470px]">
           <h1 class="text-lg font-bold">
             Your kindness can make the world of a difference for a
@@ -17,7 +17,9 @@ class FirstSection extends Nullstack {
           </h2>
           <div class="flex gap-6">
             <StyledButton w="full">Explore</StyledButton>
-            <StyledButton secondary w="full">Buy MFs</StyledButton>
+            <StyledButton secondary w="full">
+              Buy MFs
+            </StyledButton>
           </div>
         </div>
         <div>

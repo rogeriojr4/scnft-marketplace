@@ -25,12 +25,12 @@ class TopSold extends Nullstack {
 
   render() {
     return (
-      <section class="flex flex-col items-center w-full">
+      <section class="px-64 flex flex-col items-center w-full">
         <h1 class="text-lg font-bold">
           Top NFTs sold over{" "}
           <span class="text-black bg-contrast px-2">last 24 hours</span>
         </h1>
-        <div class="flex gap-16 mt-12 flex-wrap">
+        <div class="flex gap-16 mt-12 flex-wrap justify-around w-full">
           <SoldNFT
             name="NFT Name"
             editionsNumber="324"

@@ -4,6 +4,8 @@ import "./input.css";
 import Home from "./Pages/Home";
 import Header from "./Elements/Header";
 import Footer from "./Elements/Footer";
+import Explore from "./Pages/Explore";
+import Admin from "./Pages/Admin/Admin";
 
 class Application extends Nullstack {
   renderHead() {
@@ -25,11 +27,10 @@ class Application extends Nullstack {
         class="font-sans bg-black text-white"
         style="text-shadow: 0px 0px 20px rgba(255, 255, 255, 0.7)"
       >
-        <div class="px-64 py-10">
-          <Head />
-          <Header />
-          <Home route="/" />
-        </div>
+        <Head />
+        <Explore route="/explore"/>
+        <Admin route="/admin/*" />
+        <Home route="/" />
         <Footer />
       </main>
     );
