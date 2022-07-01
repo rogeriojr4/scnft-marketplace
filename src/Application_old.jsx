@@ -16,21 +16,21 @@ class Application extends Nullstack {
   name = "";
   file = null;
 
-  static async saveImage({ image }) {
-    const client = new Web3Storage({
-      token:
-        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkaWQ6ZXRocjoweEJjQzRiNUVBZjM4OTMzZkQ2NTMzYjNmNzIzNTFhODU1ZGE4NzJlRTQiLCJpc3MiOiJ3ZWIzLXN0b3JhZ2UiLCJpYXQiOjE2NTY0MzA1NjcwNjUsIm5hbWUiOiJ0ZXN0In0.dzMeCAnupdbBOe8eZLWgr9lpLCGfG1z0Kg8QY-1SiC0",
-    });
+  // static async saveImage({ image }) {
+  //   const client = new Web3Storage({
+  //     token:
+  //       "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkaWQ6ZXRocjoweEJjQzRiNUVBZjM4OTMzZkQ2NTMzYjNmNzIzNTFhODU1ZGE4NzJlRTQiLCJpc3MiOiJ3ZWIzLXN0b3JhZ2UiLCJpYXQiOjE2NTY0MzA1NjcwNjUsIm5hbWUiOiJ0ZXN0In0.dzMeCAnupdbBOe8eZLWgr9lpLCGfG1z0Kg8QY-1SiC0",
+  //   });
 
-    const base64Image = Buffer.from(
-      image.replace(/^data:image\/\w+;base64,/, ""),
-      "base64"
-    );
+  //   const base64Image = Buffer.from(
+  //     image.replace(/^data:image\/\w+;base64,/, ""),
+  //     "base64"
+  //   );
 
-    const file = new File([base64Image], "image.png");
+  //   const file = new File([base64Image], "image.png");
 
-    return client.put([file]);
-  }
+  //   return client.put([file]);
+  // }
 
   hydrate(context) {
     fcl

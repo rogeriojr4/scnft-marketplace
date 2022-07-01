@@ -2,33 +2,62 @@ import Nullstack from "nullstack";
 import SearchIcon from "../assets/SearchIcon";
 import Header from "../Elements/Header";
 import NFTCard from "../Elements/NFTCard";
+import * as fcl from "@onflow/fcl";
+import * as t from "@onflow/types";
+import { getSaleNFTsScript } from "../cdc/scripts/get_sale_nfts";
 
 class Explore extends Nullstack {
-  render() {
+  nfts = null;
+  loading = false;
+
+  async hydrate({ addr }) {
+    console.log({ addr });
+    const result = await fcl
+      .send([
+        fcl.script(getSaleNFTsScript),
+        fcl.args([fcl.arg(addr, t.Address)]),
+      ])
+      .then(fcl.decode);
+
+    console.log(result);
+    this.nfts = result;
+    this.loading = false;
+  }
+
+  render({ addr }) {
     return (
-      <div class="flex flex-col gap-36 items-center">
+      <div class="flex w-full flex-col">
         <Header />
-        <div class="w-full px-56 flex flex-col items-center">
-          <div class="max-w-xl flex flex-col items-center">
-            <h1 class="text-lg font-bold">Explore the starving children</h1>
-            <div class="relative w-full border-b-2 border-white">
-              <SearchIcon clazz="absolute top-[10px] left-3" />
-              <input
-                class="bg-gray-900 w-full text-md p-2"
-                type="search"
-                name="search"
-                id="search-input"
-              />
+        <div class="flex flex-col gap-36 items-center">
+          <div class="w-full px-56 flex flex-col items-center">
+            <div class="max-w-xl flex flex-col items-center">
+              <h1 class="text-lg font-bold">Explore the starving children</h1>
+              <div class="relative w-full border-b-2 border-white">
+                <SearchIcon clazz="absolute top-[10px] left-3" />
+                <input
+                  class="bg-gray-900 w-full text-md p-2"
+                  type="search"
+                  name="search"
+                  id="search-input"
+                />
+              </div>
+            </div>
+            <div class="flex flex-wrap w-full justify-around gap-8 mt-12 mb-2">
+              {this.nfts &&
+                Object.entries(this.nfts).map(([id, { nftRef, price }]) => {
+                  if (id < 10) return null;
+                  return (
+                    <NFTCard
+                      name={nftRef.metadata.name}
+                      price={parseFloat(price).toFixed(3)}
+                      imageSrc={`https://ipfs.infura.io/ipfs/${nftRef.ipfsHash}`}
+                      addr={addr}
+                      nftId={id}
+                    />
+                  );
+                })}
             </div>
           </div>
-          <div class="flex flex-wrap w-full justify-around gap-8 mt-12 mb-2">
-            {Array(12)
-              .fill(0)
-              .map(() => {
-                return <NFTCard />;
-              })}
-          </div>
-        </div>
           <button class="flex w-full justify-center gap-2 items-center mb-12">
             Load more{" "}
             <svg
@@ -44,6 +73,7 @@ class Explore extends Nullstack {
               />
             </svg>
           </button>
+        </div>
       </div>
     );
   }

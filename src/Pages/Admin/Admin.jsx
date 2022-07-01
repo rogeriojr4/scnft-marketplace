@@ -2,6 +2,9 @@ import Nullstack from "nullstack";
 import SCLogo from "../../assets/SCLogo";
 import AdminHeader from "../../Elements/Admin/AdminHeader";
 import CreateNFT from "./CreateNFT";
+import NFTs from "./NFTs";
+import ForSale from "./ForSale";
+import MintTokens from "./MintTokens";
 
 class Admin extends Nullstack {
   renderAdminNavBar({ router }) {
@@ -28,11 +31,19 @@ class Admin extends Nullstack {
         </a>
         <a
           class="hover:underline w-full text-center py-2"
-          href="/admin/collections"
+          style={router.url.includes("forSale") ? activeStyle : ""}
+          href="/admin/forSale"
         >
-          Collections
+          For Sale
         </a>
-        <a class="hover:underline w-full text-center py-2" href="/admin/traits">
+        <a
+          class="hover:underline w-full text-center py-2"
+          style={router.url.includes("mintTokens") ? activeStyle : ""}
+          href="/admin/mintTokens"
+        >
+          Admin Faucet
+        </a>
+        {/* <a class="hover:underline w-full text-center py-2" href="/admin/traits">
           Traits
         </a>
         <a
@@ -40,7 +51,7 @@ class Admin extends Nullstack {
           href="/admin/account"
         >
           Account
-        </a>
+        </a> */}
       </nav>
     );
   }
@@ -52,7 +63,10 @@ class Admin extends Nullstack {
         <div class="w-[calc(100%-14rem)] pt-8 bg-[#111111]">
           <AdminHeader />
           <div class="p-8 w-full">
-            <CreateNFT route="/admin/createNFT"/>
+            <CreateNFT route="/admin/createNFT" />
+            <NFTs route="/admin/NFT" />
+            <ForSale route="/admin/forSale" />
+            <MintTokens route="/admin/mintTokens" />
           </div>
         </div>
       </div>

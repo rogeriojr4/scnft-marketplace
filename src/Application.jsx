@@ -8,9 +8,9 @@ import Explore from "./Pages/Explore";
 import Admin from "./Pages/Admin/Admin";
 import * as fcl from "@onflow/fcl";
 import * as t from "@onflow/types";
+import Profile from "./Pages/Profile";
 
 class Application extends Nullstack {
-
   hydrate(context) {
     fcl
       .config()
@@ -37,14 +37,16 @@ class Application extends Nullstack {
     );
   }
 
-  render() {
+  render({ settings }) {
+    console.log(settings)
     return (
       <main
         class="font-sans bg-black text-white"
         style="text-shadow: 0px 0px 20px rgba(255, 255, 255, 0.7)"
       >
         <Head />
-        <Explore route="/explore"/>
+        <Explore route="/explore" addr={settings.adminAddress} />
+        <Profile route="/profile" />
         <Admin route="/admin/*" />
         <Home route="/" />
         <Footer />

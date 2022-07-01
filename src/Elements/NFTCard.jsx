@@ -1,24 +1,57 @@
 import Nullstack from "nullstack";
 import MFLogo from "../assets/MFLogo";
 import "./test.css";
+import { purchaseTx } from "../cdc/transactions/purchase";
+import * as fcl from "@onflow/fcl";
+import * as t from "@onflow/types";
+import StyledButton from "./StyledButton";
 
 class NFTCard extends Nullstack {
-  render() {
+  loading = false;
+
+  async purchase({ nftId, user, addr }) {
+    if (!user.addr) {
+      console.log("Could not find a logged user");
+      return;
+    }
+    this.loading = true;
+    try {
+      const transactionId = await fcl
+        .send([
+          fcl.transaction(purchaseTx),
+          fcl.args([fcl.arg(addr, t.Address), fcl.arg(parseInt(nftId), t.UInt64)]),
+          fcl.payer(fcl.authz),
+          fcl.proposer(fcl.authz),
+          fcl.authorizations([fcl.authz]),
+          fcl.limit(9999),
+        ])
+        .then(fcl.decode);
+
+      console.log(transactionId);
+      const response = await fcl.tx(transactionId).onceSealed();
+      console.log(response);
+    } catch (err) {
+      console.log(err);
+    } finally {
+      this.loading = false;
+    }
+  }
+
+  render({ name, price, imageSrc, id }) {
     return (
       <div class="flex flex-col items-center border-2 p-1">
-        <img
-          class="w-[285px] h-[267px]"
-          src="/assets/child_home.png"
-          alt="ALo"
-        />
+        <img class="w-[285px] h-[267px]" src={imageSrc} alt="ALo" />
         <div class="mt-3 w-full p-2">
-          <h3 class="font-bold text-md">NFT Name</h3>
-          <h4 class="text-sm">Creator's name</h4>
-          <br />
+          <h3 class="font-bold text-md">{name}</h3>
+          {/* <h4 class="text-sm">Creator's name</h4> */}
+          {/* <br /> */}
           <p class="text-sm">Price</p>
-          <div class="text-md flex items-center gap-2">
-            <MFLogo />
-            <span>0.49</span>
+          <div class="flex justify-between">
+            <div class="text-md flex items-center gap-2">
+              <MFLogo />
+              <span>{price}</span>
+            </div>
+            <StyledButton loading={this.loading} onclick={this.purchase}>Buy Now</StyledButton>
           </div>
         </div>
       </div>

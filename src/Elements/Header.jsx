@@ -81,7 +81,7 @@ class Header extends Nullstack {
     );
   }
 
-  renderProfile({ user }) {
+  renderProfile({ user, settings }) {
     if (!user?.loggedIn)
       return (
         <div class="w-full pt-10 px-56 justify-end flex">
@@ -93,7 +93,9 @@ class Header extends Nullstack {
       );
     return (
       <div class="w-full pt-10 px-56 justify-end flex gap-6">
-        <div>Addr: {user.addr}</div>
+        <a href={user.addr === settings.adminAddress ? "/admin" : "/profile"}>
+          Addr: {user.addr}
+        </a>
         <UserBalance />
         <button onclick={this.logout} class="flex items-center gap-2">
           <LogoutIcon />
