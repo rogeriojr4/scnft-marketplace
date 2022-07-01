@@ -49,7 +49,7 @@ class Explore extends Nullstack {
               {this.nfts &&
                 Object.entries(this.nfts).map(([id, { nftRef, price }]) => {
                   if (
-                    id < 10 ||
+                    // id < 10 ||
                     !nftRef.metadata.name
                       .toLocaleLowerCase()
                       .includes(this.search.toLocaleLowerCase())

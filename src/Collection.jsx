@@ -57,7 +57,7 @@ class Collection extends Nullstack {
         )}
         {this.nfts.map((nft) => {
           console.log(nft.ipfsHash);
-          if (nft.id < 10) return null;
+          // if (nft.id < 10) return null;
           return (
             <div class="border border-white rounded-md p-5" key={nft.id}>
               <h1>#{nft.id}</h1>

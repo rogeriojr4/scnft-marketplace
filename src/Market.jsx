@@ -59,7 +59,7 @@ class Market extends Nullstack {
         )}
         <div class="w-full flex gap-5">
           {Object.entries(this.nfts).map(([id, { nftRef, price }]) => {
-            if (id < 10) return null;
+            // if (id < 10) return null;
             return (
               <div class="border border-green-700 rounded-md p-5" key={id}>
                 <h1>#{id}</h1>
