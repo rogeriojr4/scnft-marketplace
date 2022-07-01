@@ -6,8 +6,24 @@ import Header from "./Elements/Header";
 import Footer from "./Elements/Footer";
 import Explore from "./Pages/Explore";
 import Admin from "./Pages/Admin/Admin";
+import * as fcl from "@onflow/fcl";
+import * as t from "@onflow/types";
 
 class Application extends Nullstack {
+
+  hydrate(context) {
+    fcl
+      .config()
+      .put("accessNode.api", "https://rest-testnet.onflow.org")
+      .put("app.detail.title", "Meta Food Truck")
+      .put("app.detail.icon", "https://picsum.photos/id/1010/200/200")
+      .put(
+        "discovery.wallet",
+        "https://fcl-discovery.onflow.org/testnet/authn"
+      );
+    fcl.currentUser().subscribe((user) => (context.user = user));
+  }
+
   renderHead() {
     return (
       <head>

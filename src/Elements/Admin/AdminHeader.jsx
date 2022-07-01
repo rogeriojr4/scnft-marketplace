@@ -1,6 +1,13 @@
 import Nullstack from "nullstack";
+import * as fcl from "@onflow/fcl";
 
 class AdminHeader extends Nullstack {
+  logout({ router }) {
+    // log out form Blocto
+    fcl.unauthenticate();
+    router.url = "/";
+  }
+
   renderLogoutIcon() {
     return (
       <svg
@@ -18,11 +25,11 @@ class AdminHeader extends Nullstack {
     );
   }
 
-  render() {
+  render({ user }) {
     return (
       <header class="w-full flex justify-end gap-6 pr-6">
-        <div>tap@nft.com</div>
-        <button class="flex items-center gap-2">
+        <div>Addr: {user?.addr}</div>
+        <button onclick={this.logout} class="flex items-center gap-2">
           <LogoutIcon />
           logout
         </button>

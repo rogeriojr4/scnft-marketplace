@@ -6,9 +6,9 @@ class Footer extends Nullstack {
     return (
       <footer class="flex justify-between px-64 py-10 border-t-2 border-white">
         <div class="flex flex-col justify-start">
-          <div class="w-fit">
+          <a href="/" class="w-fit">
             <SCLogo />
-          </div>
+          </a>
           <p class="text-xs mt-4 max-w-[300px]">
             They may not have food, but you can help an NFT-less child with this
             buy one, give one opportunity. Every child deserves an NFT.
