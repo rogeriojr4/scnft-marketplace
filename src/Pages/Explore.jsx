@@ -10,6 +10,8 @@ class Explore extends Nullstack {
   nfts = null;
   loading = false;
 
+  search = "";
+
   async hydrate({ addr }) {
     console.log({ addr });
     const result = await fcl
@@ -35,17 +37,24 @@ class Explore extends Nullstack {
               <div class="relative w-full border-b-2 border-white">
                 <SearchIcon clazz="absolute top-[10px] left-3" />
                 <input
-                  class="bg-gray-900 w-full text-md p-2"
+                  class="bg-gray-900 w-full text-md p-2 pl-14"
                   type="search"
                   name="search"
                   id="search-input"
+                  bind={this.search}
                 />
               </div>
             </div>
             <div class="flex flex-wrap w-full justify-around gap-8 mt-12 mb-2">
               {this.nfts &&
                 Object.entries(this.nfts).map(([id, { nftRef, price }]) => {
-                  if (id < 10) return null;
+                  if (
+                    id < 10 ||
+                    !nftRef.metadata.name
+                      .toLocaleLowerCase()
+                      .includes(this.search.toLocaleLowerCase())
+                  )
+                    return null;
                   return (
                     <NFTCard
                       name={nftRef.metadata.name}
