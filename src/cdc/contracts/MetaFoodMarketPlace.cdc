@@ -19,6 +19,7 @@ pub contract MetaFoodMarketplace {
     pub fun getIDs(): [UInt64]
     pub fun getPrice(id: UInt64): UFix64
     pub fun purchase(id: UInt64, recipientCollection: &SCHNFT.Collection{NonFungibleToken.CollectionPublic}, payment: @MetaFoodToken.Vault)
+    pub fun getOptionalPrice(id: UInt64): UFix64?
   }
 
   pub resource SaleCollection: SaleCollectionPublic {
@@ -52,6 +53,10 @@ pub contract MetaFoodMarketplace {
 
     pub fun getPrice(id: UInt64): UFix64 {
       return self.forSale[id]!
+    }
+
+    pub fun getOptionalPrice(id: UInt64): UFix64? {
+      return self.forSale[id]
     }
 
     pub fun getIDs(): [UInt64] {

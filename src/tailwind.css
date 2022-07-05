@@ -606,6 +606,22 @@ video {
   left: 0.75rem;
 }
 
+.top-\[11px\] {
+  top: 11px;
+}
+
+.left-\[13px\] {
+  left: 13px;
+}
+
+.bottom-\[32px\] {
+  bottom: 32px;
+}
+
+.left-\[11px\] {
+  left: 11px;
+}
+
 .top-\[-15px\] {
   top: -15px;
 }
@@ -626,6 +642,11 @@ video {
 .my-2 {
   margin-top: 0.5rem;
   margin-bottom: 0.5rem;
+}
+
+.my-6 {
+  margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
 }
 
 .my-12 {
@@ -711,6 +732,18 @@ video {
   height: 267px;
 }
 
+.h-\[670px\] {
+  height: 670px;
+}
+
+.h-\[335px\] {
+  height: 335px;
+}
+
+.h-\[167px\] {
+  height: 167px;
+}
+
 .h-fit {
   height: -webkit-fit-content;
   height: -moz-fit-content;
@@ -725,6 +758,14 @@ video {
   height: 34px;
 }
 
+.max-h-\[335px\] {
+  max-height: 335px;
+}
+
+.max-h-\[167px\] {
+  max-height: 167px;
+}
+
 .max-h-\[70px\] {
   max-height: 70px;
 }
@@ -735,6 +776,14 @@ video {
 
 .min-h-\[calc\(100vh-226px\)\] {
   min-height: calc(100vh - 226px);
+}
+
+.min-h-\[1200px\] {
+  min-height: 1200px;
+}
+
+.min-h-\[1500px\] {
+  min-height: 1500px;
 }
 
 .w-full {
@@ -761,6 +810,18 @@ video {
 
 .w-\[285px\] {
   width: 285px;
+}
+
+.w-\[404px\] {
+  width: 404px;
+}
+
+.w-\[355px\] {
+  width: 355px;
+}
+
+.w-\[178px\] {
+  width: 178px;
 }
 
 .w-\[30\%\] {
@@ -793,6 +854,18 @@ video {
 
 .max-w-xl {
   max-width: 36rem;
+}
+
+.max-w-\[200px\] {
+  max-width: 200px;
+}
+
+.max-w-\[355px\] {
+  max-width: 355px;
+}
+
+.max-w-\[178px\] {
+  max-width: 178px;
 }
 
 .max-w-\[470px\] {
@@ -997,6 +1070,10 @@ video {
   background-image: url(/assets/background/pink_elipse_left.svg);
 }
 
+.bg-\[url\(\/assets\/background\/bg-details\.svg\)\] {
+  background-image: url(/assets/background/bg-details.svg);
+}
+
 .bg-\[url\(\/assets\/background\/grid\.svg\)\] {
   background-image: url(/assets/background/grid.svg);
 }
@@ -1005,8 +1082,24 @@ video {
   background-image: url(/assets/background/pink_elipse_right.svg);
 }
 
+.bg-\[url\(\/assets\/background\.elipses-home\.svg\)\] {
+  background-image: url(/assets/background.elipses-home.svg);
+}
+
+.bg-\[url\(\/assets\/background\/elipses-home\.svg\)\] {
+  background-image: url(/assets/background/elipses-home.svg);
+}
+
 .bg-cover {
   background-size: cover;
+}
+
+.bg-w-full {
+  background-size: 100% auto;
+}
+
+.bg-no-repeat {
+  background-repeat: no-repeat;
 }
 
 .p-3 {
@@ -1063,6 +1156,11 @@ video {
   padding-right: 14rem;
 }
 
+.py-28 {
+  padding-top: 7rem;
+  padding-bottom: 7rem;
+}
+
 .px-36 {
   padding-left: 9rem;
   padding-right: 9rem;
@@ -1112,6 +1210,18 @@ video {
   padding-top: 2rem;
 }
 
+.pt-6 {
+  padding-top: 1.5rem;
+}
+
+.pt-12 {
+  padding-top: 3rem;
+}
+
+.pt-20 {
+  padding-top: 5rem;
+}
+
 .text-center {
   text-align: center;
 }
@@ -1151,6 +1261,10 @@ video {
   font-weight: 200;
 }
 
+.font-semibold {
+  font-weight: 600;
+}
+
 .text-white {
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity));
@@ -1161,6 +1275,11 @@ video {
   color: rgb(0 0 0 / var(--tw-text-opacity));
 }
 
+.text-contrast-secondary {
+  --tw-text-opacity: 1;
+  color: rgb(255 136 150 / var(--tw-text-opacity));
+}
+
 .text-contrast {
   --tw-text-opacity: 1;
   color: rgb(253 197 0 / var(--tw-text-opacity));
@@ -1169,11 +1288,6 @@ video {
 .text-gray-300 {
   --tw-text-opacity: 1;
   color: rgb(209 213 219 / var(--tw-text-opacity));
-}
-
-.text-contrast-secondary {
-  --tw-text-opacity: 1;
-  color: rgb(255 136 150 / var(--tw-text-opacity));
 }
 
 .filter {

@@ -15,10 +15,10 @@ transaction(series: String, price:UFix64, numberOfNFTs: Int,ipfsHashA: String, n
       let edition = count + 1
 
       // This is the NFT that will be donated
-      let nftB <- SCHNFT.createToken(ipfsHash: ipfsHashB, metadata: {"name": nameB, "auth": authB, "description": descriptionB, "series": series, "edition": edition.toString()})
+      let nftB <- SCHNFT.createToken(ipfsHash: ipfsHashB, metadata: {"name": nameB, "auth": authB, "description": descriptionB, "series": series, "edition": edition.toString(), "maximumNumber": numberOfNFTs.toString()})
   
       // This is the NFT that will be bought, it has the ID of the donated NFT
-      let nftA <- SCHNFT.createToken(ipfsHash: ipfsHashA, metadata: {"name": nameA, "auth": authA, "description": descriptionA, "donateToId": nftB.id.toString(), "series": series, "edition": edition.toString()})
+      let nftA <- SCHNFT.createToken(ipfsHash: ipfsHashA, metadata: {"name": nameA, "auth": authA, "description": descriptionA, "donateToId": nftB.id.toString(), "series": series, "edition": edition.toString(), "maximumNumber": numberOfNFTs.toString()})
       
       idsA.append(nftA.id)
       idsB.append(nftB.id)

@@ -21,6 +21,9 @@ module.exports = {
       fontSize: {
         'lg': '35px',
         'md': '20px'
+      },
+      backgroundSize: {
+        'w-full': '100% auto'
       }
     },
   },

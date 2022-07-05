@@ -5,8 +5,6 @@ import { getNFTsScript } from "./cdc/scripts/get_nft";
 import { listForSaleTx } from "./cdc/transactions/list_for_sale";
 import arrangeNFTCollection from "./helpers/arrangeNFTCollection";
 
-// 0x3135525943078f46
-
 class Collection extends Nullstack {
   nfts = {};
   loading = false;
@@ -19,7 +17,6 @@ class Collection extends Nullstack {
     const result = await fcl
       .send([fcl.script(getNFTsScript), fcl.args([fcl.arg(addr, t.Address)])])
       .then(fcl.decode);
-    //this.nfts = result.reverse();
     this.nfts = arrangeNFTCollection(
       result.filter((a) => {
         return a.id >= 18;
