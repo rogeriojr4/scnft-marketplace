@@ -38,7 +38,6 @@ class Application extends Nullstack {
   }
 
   render({ settings }) {
-    console.log(settings)
     return (
       <main
         class="font-sans bg-black text-white"

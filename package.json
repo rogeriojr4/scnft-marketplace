@@ -10,7 +10,7 @@
     "tailwindcss": "^3.1.4"
   },
   "scripts": {
-    "start": "npx nullstack start",
+    "start": "npx nullstack start --mode=spa --hot",
     "build": "npx nullstack build --mode=ssr",
     "tailwind": "npx tailwindcss -o ./src/tailwind.css",
     "dev": "concurrently \"npm:tailwind -- --watch\" \"npm:start\" "
@@ -19,6 +19,6 @@
     "@onflow/fcl": "^1.1.0",
     "@onflow/types": "^1.0.2",
     "ipfs-http-client": "^57.0.3",
-    "web3.storage": "^4.3.0"
+    "nanoid": "^4.0.0"
   }
 }

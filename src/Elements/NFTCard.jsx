@@ -1,7 +1,7 @@
 import Nullstack from "nullstack";
 import MFLogo from "../assets/MFLogo";
 import "./test.css";
-import { purchaseTx } from "../cdc/transactions/purchase";
+import { purchaseWithDonationTx } from "../cdc/NewTransactions/purchase_with_donation";
 import * as fcl from "@onflow/fcl";
 import * as t from "@onflow/types";
 import StyledButton from "./StyledButton";
@@ -9,17 +9,23 @@ import StyledButton from "./StyledButton";
 class NFTCard extends Nullstack {
   loading = false;
 
-  async purchase({ nftId, user, addr }) {
+  async purchase({ nftId, donateToId, user, addr, settings }) {
     if (!user.addr) {
       console.log("Could not find a logged user");
       return;
     }
+    console.log("settings.donationAddress", settings.donationAddress)
     this.loading = true;
     try {
       const transactionId = await fcl
         .send([
-          fcl.transaction(purchaseTx),
-          fcl.args([fcl.arg(addr, t.Address), fcl.arg(parseInt(nftId), t.UInt64)]),
+          fcl.transaction(purchaseWithDonationTx),
+          fcl.args([
+            fcl.arg(addr, t.Address),
+            fcl.arg(parseInt(nftId), t.UInt64),
+            fcl.arg(parseInt(donateToId), t.UInt64),
+            fcl.arg(settings.donationAddress, t.Address),
+          ]),
           fcl.payer(fcl.authz),
           fcl.proposer(fcl.authz),
           fcl.authorizations([fcl.authz]),
@@ -37,7 +43,7 @@ class NFTCard extends Nullstack {
     }
   }
 
-  render({ name, price, imageSrc, id }) {
+  render({ name, price, imageSrc }) {
     return (
       <div class="flex flex-col items-center border-2 p-1">
         <img class="w-[285px] h-[267px]" src={imageSrc} alt="ALo" />
@@ -51,7 +57,9 @@ class NFTCard extends Nullstack {
               <MFLogo />
               <span>{price}</span>
             </div>
-            <StyledButton loading={this.loading} onclick={this.purchase}>Buy Now</StyledButton>
+            <StyledButton loading={this.loading} onclick={this.purchase}>
+              Buy Now
+            </StyledButton>
           </div>
         </div>
       </div>

@@ -2,17 +2,26 @@ import Nullstack from "nullstack";
 import StyledInput from "../../Elements/Admin/StyledInput";
 import StyledButton from "../../Elements/StyledButton";
 import { mintNFT } from "../../cdc/transactions/mint_nft";
-import { Web3Storage } from "web3.storage";
-import { File } from "web3.storage";
+// import { mintNFTsTx } from "../../cdc/NewTransactions/mint_nfts";
+import { mintNFTsTx } from "../../cdc/NewTransactions/mint_nfts_and_list";
 import * as fcl from "@onflow/fcl";
 import * as t from "@onflow/types";
+
+import { nanoid } from "nanoid";
+
 class CreateNFT extends Nullstack {
   nftName = "";
+  nftAuthor = "";
+  nftDescription = "";
   price = "10.234";
   fileA = "";
 
   nftBName = "";
+  nftBAuthor = "";
+  nftBDescription = "";
   fileB = "";
+
+  maxEditions = "";
 
   loading = false;
 
@@ -39,13 +48,66 @@ class CreateNFT extends Nullstack {
     try {
       this.loading = true;
 
-      const cidAPromise = ipfs.add(this.fileA);
-      const cidBPromise = ipfs.add(this.fileB);
+      // const cidAPromise = ipfs.add(this.fileA);
+      // const cidBPromise = ipfs.add(this.fileB);
 
-      const [cidA, cidB] = await Promise.all([cidAPromise, cidBPromise]);
+      // const [cidA, cidB] = await Promise.all([cidAPromise, cidBPromise]);
+      
+      const cidA = { path: "QmXHATBdSeaq1kjPQVbx1CBNjND8AnkZ4i5x6GusLJmkfJ" };
+      const cidB = { path: "Qmf14DY2xCF9gHLGjDsUHqZXbv9xrTxHe5DjkihKtu4o9W" };
 
-      // const cidA = "QmNQrmZdXbp2EtxVfLLoNR2V9hk2b6rJPNJVduD1nHUBuT";
-      // const cidB = "QmXasV8mQcviBUBsyAPNQCtUKcpxQtxrXfoVMFTemvxcz4";
+      console.log("cid", { cidA: cidA.path, cidB: cidB.path });
+      if (!cidA || !cidB) {
+        console.log("Error uploading image");
+        return;
+      }
+
+      const transactionId = await fcl
+        .send([
+          fcl.transaction(mintNFTsTx),
+          fcl.args([
+            fcl.arg(nanoid(), t.String),
+            fcl.arg(this.price, t.UFix64),
+            fcl.arg(parseInt(this.maxEditions), t.Int),
+            fcl.arg(cidA.path, t.String),
+            fcl.arg(this.nftName, t.String),
+            fcl.arg(this.nftAuthor, t.String),
+            fcl.arg(this.nftDescription, t.String),
+            fcl.arg(cidB.path, t.String),
+            fcl.arg(this.nftBName, t.String),
+            fcl.arg(this.nftBAuthor, t.String),
+            fcl.arg(this.nftBDescription, t.String),
+          ]),
+          fcl.payer(fcl.authz),
+          fcl.proposer(fcl.authz),
+          fcl.authorizations([fcl.authz]),
+          fcl.limit(9999),
+        ])
+        .then(fcl.decode);
+
+      const responseSealed = await fcl.tx(transactionId).onceSealed();
+
+      console.log("responseSealed", responseSealed);
+      window.document.location.reload();
+    } catch (error) {
+      console.log("Error minting files: ", error);
+    } finally {
+      this.loading = false;
+    }
+  }
+
+  async __DEPRECATED_mint({ ipfs }) {
+    if (!fcl.authz) return;
+    try {
+      this.loading = true;
+
+      // const cidAPromise = ipfs.add(this.fileA);
+      // const cidBPromise = ipfs.add(this.fileB);
+
+      // const [cidA, cidB] = await Promise.all([cidAPromise, cidBPromise]);
+
+      const cidA = "QmNQrmZdXbp2EtxVfLLoNR2V9hk2b6rJPNJVduD1nHUBuT";
+      const cidB = "QmXasV8mQcviBUBsyAPNQCtUKcpxQtxrXfoVMFTemvxcz4";
 
       console.log("cid", { cidA: cidA.path, cidB: cidB.path });
       if (!cidA || !cidB) {
@@ -91,7 +153,7 @@ class CreateNFT extends Nullstack {
       ]);
 
       console.log({ doneSealed1, doneSealed2 });
-      window.document.location.reload();
+      // window.document.location.reload();
     } catch (error) {
       console.log("Error minting files: ", error);
     } finally {
@@ -102,6 +164,11 @@ class CreateNFT extends Nullstack {
   renderSideA() {
     return (
       <div class="flex flex-col gap-6">
+        {this.loading && (
+          <div class="fixed top-0 left-0 z-10 bg-[rgba(0,0,0,0.5)] w-[100vw] h-[100vh] text-9xl flex justify-center items-center">
+            LOADING . . .
+          </div>
+        )}
         <h1 class="font-bold text-lg">Create a new NFT</h1>
         <h2 class="text-md font-bold">Image, Video, Audio, or 3D Model *</h2>
         <h4 class="text-gray-300 text-sm">
@@ -114,9 +181,42 @@ class CreateNFT extends Nullstack {
           name="nftContent"
           id="nft-content-input"
         />
+        <StyledInput
+          type="text"
+          name="nftName"
+          id="nftName"
+          bind={this.nftName}
+          label="Name *"
+        />
+        <StyledInput
+          type="text"
+          name="nftAuthor"
+          id="nftAuthor"
+          bind={this.nftAuthor}
+          label="Author *"
+        />
+        <StyledInput
+          type="number"
+          name="nftMaxEditions"
+          id="nftMaxEditions"
+          bind={this.maxEditions}
+          label="Max Editions *"
+        />
+        <StyledInput
+          type="number"
+          name="nftPrice"
+          id="nftPrice"
+          bind={this.price}
+          label="Price *"
+        />
         <div class="flex flex-col">
-          <label htmlFor={"nftName"}>Name *</label>
-          <input type="text" name="nftName" id="nftName" bind={this.nftName} />
+          <label htmlFor={"nftDescription"}>Description *</label>
+          <textarea
+            class="bg-black border border-white"
+            name="nftDescription"
+            id="nftDescription"
+            bind={this.nftDescription}
+          />
         </div>
         <div class="w-[200px]">
           <StyledButton onclick={this.mint}>Create NFT</StyledButton>
@@ -142,13 +242,27 @@ class CreateNFT extends Nullstack {
           name="nftContent"
           id="nft-content-input"
         />
+        <StyledInput
+          type="text"
+          name="nftBName"
+          id="nftBName"
+          bind={this.nftBName}
+          label="Name *"
+        />
+        <StyledInput
+          type="text"
+          name="nftBAuthor"
+          id="nftBAuthor"
+          bind={this.nftBAuthor}
+          label="Author *"
+        />
         <div class="flex flex-col">
-          <label htmlFor={"nftName"}>Name *</label>
-          <input
-            type="text"
-            name="nftBName"
-            id="nftBName"
-            bind={this.nftBName}
+          <label htmlFor={"nftBDescription"}>Description *</label>
+          <textarea
+            class="bg-black border border-white"
+            name="nftBDescription"
+            id="nftBDescription"
+            bind={this.nftBDescription}
           />
         </div>
         <p class="text-gray-300 text-sm">
@@ -162,11 +276,6 @@ class CreateNFT extends Nullstack {
   render() {
     return (
       <div class="w-full flex gap-12">
-        {this.loading && (
-          <div class="fixed top-0 left-0 z-10 bg-[rgba(0,0,0,0.5)] w-[100vw] h-[100vh] text-9xl flex justify-center items-center">
-            LOADING . . .
-          </div>
-        )}
         <SideA />
         <SideB />
       </div>

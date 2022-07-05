@@ -7,8 +7,6 @@ import "./tailwind.css";
 import { mintNFT } from "./cdc/transactions/mint_nft.js";
 import { setupUserTx } from "./cdc/transactions/setup_user.js";
 
-import { Web3Storage } from "web3.storage";
-import { File } from "web3.storage";
 import Market from "./Market";
 import Currency from "./Currency";
 

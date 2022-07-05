@@ -3,11 +3,12 @@ import * as fcl from "@onflow/fcl";
 import * as t from "@onflow/types";
 import { getNFTsScript } from "./cdc/scripts/get_nft";
 import { listForSaleTx } from "./cdc/transactions/list_for_sale";
+import arrangeNFTCollection from "./helpers/arrangeNFTCollection";
 
 // 0x3135525943078f46
 
 class Collection extends Nullstack {
-  nfts = [];
+  nfts = {};
   loading = false;
 
   async hydrate() {
@@ -18,7 +19,12 @@ class Collection extends Nullstack {
     const result = await fcl
       .send([fcl.script(getNFTsScript), fcl.args([fcl.arg(addr, t.Address)])])
       .then(fcl.decode);
-    this.nfts = result.reverse();
+    //this.nfts = result.reverse();
+    this.nfts = arrangeNFTCollection(
+      result.filter((a) => {
+        return a.id >= 18;
+      })
+    );
   }
 
   async listForSale({ id }) {
@@ -55,9 +61,9 @@ class Collection extends Nullstack {
             LOADING . . .
           </div>
         )}
-        {this.nfts.map((nft) => {
-          console.log(nft.ipfsHash);
-          // if (nft.id < 10) return null;
+        {Object.values(this.nfts).map((nfts) => {
+          const nft = nfts[0]
+          if (nft.id < 18) return null;
           return (
             <div class="border border-white rounded-md p-5" key={nft.id}>
               <h1>#{nft.id}</h1>

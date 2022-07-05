@@ -5,6 +5,7 @@ import NFTCard from "../Elements/NFTCard";
 import * as fcl from "@onflow/fcl";
 import * as t from "@onflow/types";
 import { getSaleNFTsScript } from "../cdc/scripts/get_sale_nfts";
+import arrangeNFTMarketPlace from "../helpers/arrangeNFTMarketPlaceCollection";
 
 class Explore extends Nullstack {
   nfts = null;
@@ -13,7 +14,7 @@ class Explore extends Nullstack {
   search = "";
 
   async hydrate({ addr }) {
-    console.log({ addr });
+    // console.log({ addr });
     const result = await fcl
       .send([
         fcl.script(getSaleNFTsScript),
@@ -22,7 +23,7 @@ class Explore extends Nullstack {
       .then(fcl.decode);
 
     console.log(result);
-    this.nfts = result;
+    this.nfts = arrangeNFTMarketPlace(result);
     this.loading = false;
   }
 
@@ -61,7 +62,8 @@ class Explore extends Nullstack {
                       price={parseFloat(price).toFixed(3)}
                       imageSrc={`https://ipfs.infura.io/ipfs/${nftRef.ipfsHash}`}
                       addr={addr}
-                      nftId={id}
+                      nftId={nftRef.id}
+                      donateToId={nftRef.metadata.donateToId}
                     />
                   );
                 })}
