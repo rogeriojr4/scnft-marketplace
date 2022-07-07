@@ -10,6 +10,8 @@ import * as fcl from "@onflow/fcl";
 import * as t from "@onflow/types";
 import Profile from "./Pages/Profile";
 import NFTDetail from "./Pages/NFTDetail";
+import Wtf from "./Pages/Wtf";
+import Tokens from "./Pages/Tokens";
 
 class Application extends Nullstack {
   hydrate(context) {
@@ -45,10 +47,12 @@ class Application extends Nullstack {
         style="text-shadow: 0px 0px 20px rgba(255, 255, 255, 0.7)"
       >
         <Head />
+        <Admin route="/admin/*" />
         <Explore route="/explore" addr={settings.adminAddress} />
         <Profile route="/profile" />
-        <Admin route="/admin/*" />
         <NFTDetail route="/detail" />
+        <Wtf route="/wtf" />
+        <Tokens route="/tokens" />
         {/* <NFTDetail path="/detail" /> */}
         <Home route="/" />
         <Footer />

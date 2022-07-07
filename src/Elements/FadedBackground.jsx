@@ -3,7 +3,7 @@ import Nullstack from "nullstack";
 class FadedBackground extends Nullstack {
   render({ children, bgUrl }) {
     return (
-      <div class={`w-full bg-[url(/assets/background/04-cropped-shade1.png)] bg-cover relative`}>
+      <div class={`w-full bg-cover relative`} style={`background: url(${bgUrl})`}>
         <div class="w-full bg-[rgba(0,0,0,0.75)] bg-[url(/assets/background/pink_elipse_left.svg)] bg-cover pb-[100px]">
           {children}
         </div>

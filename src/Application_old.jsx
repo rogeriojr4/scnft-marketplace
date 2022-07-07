@@ -172,7 +172,7 @@ class Application extends Nullstack {
 
   renderDefault() {
     return (
-      <Market deflt={true} addr={"0x3135525943078f46"}>
+      <Market deflt={true} addr={"0xe82c94d7f35b66c0"}>
         Oi
       </Market>
     );

@@ -23,7 +23,8 @@ module.exports = {
         'md': '20px'
       },
       backgroundSize: {
-        'w-full': '100% auto'
+        'w-full': '100% auto',
+        'w-all-full': '100% 100%'
       }
     },
   },

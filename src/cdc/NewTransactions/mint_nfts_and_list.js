@@ -1,5 +1,5 @@
-export const mintNFTsTx = `import SCHNFT from 0x3135525943078f46
-import MetaFoodMarketplace from 0x3135525943078f46
+export const mintNFTsTx = `import SCHNFT from 0xe82c94d7f35b66c0
+import MetaFoodMarketplace from 0xe82c94d7f35b66c0
 transaction(series: String, price:UFix64, numberOfNFTs: Int,ipfsHashA: String, nameA: String, authA: String, descriptionA: String, ipfsHashB: String, nameB: String, authB: String, descriptionB: String) {
 
   prepare(acct: AuthAccount) {

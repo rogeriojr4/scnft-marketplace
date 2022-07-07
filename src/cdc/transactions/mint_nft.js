@@ -1,5 +1,5 @@
 export const mintNFT = `
-import SCHNFT from 0x3135525943078f46
+import SCHNFT from 0xe82c94d7f35b66c0
 
 transaction(ipfsHash: String, name: String) {
 

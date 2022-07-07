@@ -1,5 +1,5 @@
 export const mintMFTx = `
-import MetaFoodToken from 0x3135525943078f46
+import MetaFoodToken from 0xe82c94d7f35b66c0
 
 transaction(amount: UFix64, recipientAddr: Address) {
 

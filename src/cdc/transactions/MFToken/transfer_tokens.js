@@ -1,7 +1,7 @@
 export const transferMFTx = `
 // Transfer Tokens
 
-import MetaFoodToken from 0x3135525943078f46
+import MetaFoodToken from 0xe82c94d7f35b66c0
 
 // This transaction is a template for a transaction that
 // could be used by anyone to send tokens to another account

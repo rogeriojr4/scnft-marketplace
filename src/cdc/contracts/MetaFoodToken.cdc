@@ -1,3 +1,5 @@
+import FlowToken from 0x7e60df042a9c0868
+
 pub contract MetaFoodToken {
 
     // Event that is emitted when tokens are withdrawn from a Vault
@@ -11,6 +13,8 @@ pub contract MetaFoodToken {
 
     // Total supply of all tokens in existence.
     pub var totalSupply: UFix64
+
+    access(self) var flowVault: @FlowToken.Vault
 
     // Provider
     // 
@@ -152,11 +156,30 @@ pub contract MetaFoodToken {
         }
     }
 
+    pub fun buyTokens(payment: @FlowToken.Vault, addr: Address): Bool {
+
+        let mintingRef = self.account.borrow<&MetaFoodToken.VaultMinter>(from: /storage/MFMinter)
+
+        let recipient = getAccount(addr)
+
+        let receiver = recipient.getCapability<&MetaFoodToken.Vault{MetaFoodToken.Receiver}>
+        (/public/MFReceiver)
+
+        
+
+        // Mint tokens
+        mintingRef!.mintTokens(amount: payment.balance * 30.0, recipient:receiver)
+        
+        self.flowVault.deposit(from: <- payment)
+
+        return true
+    }
+
     // The init function for the contract. All fields in the contract must
     // be initialized at deployment. This is just an example of what
     // an implementation could do in the init function. The numbers are arbitrary.
     init() {
-        self.totalSupply = 300.0
+        self.totalSupply = 300.0        
 
         // create the Vault with the initial balance and put it in storage
         // account.save saves an object to the specified `to` path
@@ -169,6 +192,9 @@ pub contract MetaFoodToken {
         // Create a new MintAndBurn resource and store it in account storage
         self.account.save(<-create VaultMinter(), to: /storage/MFMinter)
 
+        let fVault <- FlowToken.createEmptyVault() as! @FlowToken.Vault
+        self.flowVault <- fVault
+
         // Create a private capability link for the Minter
         // Capabilities can be used to create temporary references to an object
         // so that callers can use the reference to access fields and functions
@@ -180,3 +206,4 @@ pub contract MetaFoodToken {
     }
 }
  
+

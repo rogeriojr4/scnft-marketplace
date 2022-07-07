@@ -95,72 +95,7 @@ class CreateNFT extends Nullstack {
       this.loading = false;
     }
   }
-
-  async __DEPRECATED_mint({ ipfs }) {
-    if (!fcl.authz) return;
-    try {
-      this.loading = true;
-
-      // const cidAPromise = ipfs.add(this.fileA);
-      // const cidBPromise = ipfs.add(this.fileB);
-
-      // const [cidA, cidB] = await Promise.all([cidAPromise, cidBPromise]);
-
-      const cidA = "QmNQrmZdXbp2EtxVfLLoNR2V9hk2b6rJPNJVduD1nHUBuT";
-      const cidB = "QmXasV8mQcviBUBsyAPNQCtUKcpxQtxrXfoVMFTemvxcz4";
-
-      console.log("cid", { cidA: cidA.path, cidB: cidB.path });
-      if (!cidA || !cidB) {
-        console.log("Error uploading image");
-        return;
-      }
-      const transactionId1 = await fcl
-        .send([
-          fcl.transaction(mintNFT),
-          fcl.args([
-            fcl.arg(cidA.path, t.String),
-            fcl.arg(this.nftName, t.String),
-          ]),
-          fcl.payer(fcl.authz),
-          fcl.proposer(fcl.authz),
-          fcl.authorizations([fcl.authz]),
-          fcl.limit(9999),
-        ])
-        .then(fcl.decode);
-
-      const transactionId2 = await fcl
-        .send([
-          fcl.transaction(mintNFT),
-          fcl.args([
-            fcl.arg(cidB.path, t.String),
-            fcl.arg(this.nftBName, t.String),
-          ]),
-          fcl.payer(fcl.authz),
-          fcl.proposer(fcl.authz),
-          fcl.authorizations([fcl.authz]),
-          fcl.limit(9999),
-        ])
-        .then(fcl.decode);
-
-      console.log({ transactionId1, transactionId2 });
-
-      const responseSealed1 = fcl.tx(transactionId1).onceSealed();
-      const responseSealed2 = fcl.tx(transactionId2).onceSealed();
-
-      const [doneSealed1, doneSealed2] = await Promise.all([
-        responseSealed1,
-        responseSealed2,
-      ]);
-
-      console.log({ doneSealed1, doneSealed2 });
-      // window.document.location.reload();
-    } catch (error) {
-      console.log("Error minting files: ", error);
-    } finally {
-      this.loading = false;
-    }
-  }
-
+  
   renderSideA() {
     return (
       <div class="flex flex-col gap-6">

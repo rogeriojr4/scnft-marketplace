@@ -6,7 +6,7 @@ class StyledButton extends Nullstack {
       <button
         onclick={onclick}
         disabled={loading || disabled}
-        class={`text-black font-bold text-md px-4 py-2 hover:underline ${
+        class={`text-black cursor-pointer font-bold text-md px-4 py-2 hover:underline ${
           secondary ? "bg-contrast-secondary" : "bg-contrast"
         }`}
       >
