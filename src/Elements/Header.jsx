@@ -4,10 +4,46 @@ import SigninIcon from "../assets/signinIcon";
 import * as fcl from "@onflow/fcl";
 import * as t from "@onflow/types";
 import UserBalance from "./UserBalance";
+import { setupUserTx } from "../cdc/transactions/setup_user";
+import { setupMFAccountTx } from "../cdc/transactions/MFToken/setup_account";
+import { userFirstSetupTx } from "../cdc/transactions/user_first_setup";
 class Header extends Nullstack {
-  logIn() {
+  loading = false;
+
+  async logIn() {
+    this.loading = true;
     // log in through Blocto
-    fcl.authenticate();
+    await fcl.authenticate();
+
+    try {
+      /**
+       * First of all, check we can get the user's information, if not, the function will
+       * throw an error and we will need to make the initial setup below
+       */
+      await fcl
+        .send([
+          fcl.script(getMFBalanceScript),
+          fcl.args([fcl.arg(addr, t.Address)]),
+        ])
+        .then(fcl.decode);
+    } catch {
+      const transactionId = await fcl
+        .send([
+          fcl.transaction(userFirstSetupTx),
+          fcl.args([]),
+          fcl.payer(fcl.authz),
+          fcl.proposer(fcl.authz),
+          fcl.authorizations([fcl.authz]),
+          fcl.limit(9999),
+        ])
+        .then(fcl.decode);
+
+      console.log(transactionId);
+      await fcl.tx(transactionId).onceSealed();
+      window.document.location.reload();
+    } finally {
+      this.loading = false;
+    }
   }
 
   logout() {

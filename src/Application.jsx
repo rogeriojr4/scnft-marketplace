@@ -12,6 +12,7 @@ import Profile from "./Pages/Profile";
 import NFTDetail from "./Pages/NFTDetail";
 import Wtf from "./Pages/Wtf";
 import Tokens from "./Pages/Tokens";
+import User from "./Pages/User";
 
 class Application extends Nullstack {
   hydrate(context) {
@@ -51,6 +52,7 @@ class Application extends Nullstack {
         <Explore route="/explore" addr={settings.adminAddress} />
         <Profile route="/profile" />
         <NFTDetail route="/detail" />
+        <User route="/user" />
         <Wtf route="/wtf" />
         <Tokens route="/tokens" />
         {/* <NFTDetail path="/detail" /> */}

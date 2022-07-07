@@ -6,6 +6,7 @@ import { createLinktx } from "./cdc/transactions/MFToken/create_link";
 import { getMFBalanceScript } from "./cdc/transactions/MFToken/get_balance";
 import { mintMFTx } from "./cdc/transactions/MFToken/mint_tokens";
 import { transferMFTx } from "./cdc/transactions/MFToken/transfer_tokens";
+import { setupUserTx } from "./cdc/transactions/setup_user";
 
 class Currency extends Nullstack {
   balance = 0.0;
@@ -33,7 +34,7 @@ class Currency extends Nullstack {
   }
 
   async setupMFAccount() {
-    const transactionId = await fcl
+    const setupMFTxPromise = await fcl
       .send([
         fcl.transaction(setupMFAccountTx),
         fcl.args([]),
@@ -44,7 +45,20 @@ class Currency extends Nullstack {
       ])
       .then(fcl.decode);
 
+      const setupNFTTxPromise = await fcl
+      .send([
+        fcl.transaction(setupUserTx),
+        fcl.args([]),
+        fcl.payer(fcl.currentUser),
+        fcl.proposer(fcl.currentUser),
+        fcl.authorizations([fcl.currentUser]),
+        fcl.limit(99),
+      ])
+      .then(fcl.decode);
+
     console.log(transactionId);
+    return fcl.tx(transactionId).onceSealed();
+
   }
 
   async linkMFAccount() {
