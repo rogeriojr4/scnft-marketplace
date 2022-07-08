@@ -7,8 +7,10 @@ import UserBalance from "./UserBalance";
 import { setupUserTx } from "../cdc/transactions/setup_user";
 import { setupMFAccountTx } from "../cdc/transactions/MFToken/setup_account";
 import { userFirstSetupTx } from "../cdc/transactions/user_first_setup";
+import { getMFBalanceScript } from "../cdc/transactions/MFToken/get_balance";
 class Header extends Nullstack {
   loading = false;
+  
 
   async logIn() {
     this.loading = true;

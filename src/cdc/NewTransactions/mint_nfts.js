@@ -1,4 +1,4 @@
-export const mintNFTsTx = `import SCHNFT from 0xe82c94d7f35b66c0
+export const mintNFTsTx = `import SCHNFT from 0x234f923cf4d3d3e7
 transaction(series: String,numberOfNFTs: Int,ipfsHashA: String, nameA: String, authA: String, descriptionA: String, ipfsHashB: String, nameB: String, authB: String, descriptionB: String) {
 
   prepare(acct: AuthAccount) {

@@ -1,7 +1,11 @@
 export default function arrangeNFTCollection(nfts) {
+  const sortedNFTs = nfts.sort((a, b) => {
+    return a.id - b.id;
+  });
+
   let pairedNFTs = [];
 
-  nfts.map((nft) => {
+  sortedNFTs.map((nft) => {
     if (nft.metadata.donateToId) {
       const nftToDonate = nfts.find((a) => a.id === nft.metadata.donateToId);
       if (!nftToDonate) console.log("Donation NFT not found", { nft });
@@ -10,9 +14,11 @@ export default function arrangeNFTCollection(nfts) {
     }
   });
 
+  console.log(pairedNFTs);
+
   let groupedNFT = {};
 
-  nfts.map((nft) => {
+  pairedNFTs.map((nft) => {
     const series = nft.metadata.series;
     if (groupedNFT[series]) {
       groupedNFT[series].push(nft);
@@ -20,6 +26,8 @@ export default function arrangeNFTCollection(nfts) {
     }
     groupedNFT[series] = [nft];
   });
-  
+
+  console.log(pairedNFTs);
+
   return groupedNFT;
 }

@@ -48,13 +48,13 @@ class CreateNFT extends Nullstack {
     try {
       this.loading = true;
 
-      // const cidAPromise = ipfs.add(this.fileA);
-      // const cidBPromise = ipfs.add(this.fileB);
+      const cidAPromise = ipfs.add(this.fileA);
+      const cidBPromise = ipfs.add(this.fileB);
 
-      // const [cidA, cidB] = await Promise.all([cidAPromise, cidBPromise]);
+      const [cidA, cidB] = await Promise.all([cidAPromise, cidBPromise]);
       
-      const cidA = { path: "QmXHATBdSeaq1kjPQVbx1CBNjND8AnkZ4i5x6GusLJmkfJ" };
-      const cidB = { path: "Qmf14DY2xCF9gHLGjDsUHqZXbv9xrTxHe5DjkihKtu4o9W" };
+      // const cidA = { path: "QmXHATBdSeaq1kjPQVbx1CBNjND8AnkZ4i5x6GusLJmkfJ" };
+      // const cidB = { path: "Qmf14DY2xCF9gHLGjDsUHqZXbv9xrTxHe5DjkihKtu4o9W" };
 
       console.log("cid", { cidA: cidA.path, cidB: cidB.path });
       if (!cidA || !cidB) {

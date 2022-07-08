@@ -1,5 +1,5 @@
 export const unlistFromSaleTx = `
-import MetaFoodMarketplace from 0xe82c94d7f35b66c0
+import MetaFoodMarketplace from 0x234f923cf4d3d3e7
 
 transaction(id: UInt64) {
 

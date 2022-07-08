@@ -1,5 +1,5 @@
 export const buyTokensTx = `import FlowToken from 0x7e60df042a9c0868
-import MetaFoodToken from 0xe82c94d7f35b66c0
+import MetaFoodToken from 0x234f923cf4d3d3e7
 
 transaction(amount: UFix64) {
 

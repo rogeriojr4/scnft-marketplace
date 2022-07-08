@@ -4,6 +4,7 @@ import * as t from "@onflow/types";
 import { getNFTsScript } from "./cdc/scripts/get_nft";
 import { listForSaleTx } from "./cdc/transactions/list_for_sale";
 import arrangeNFTCollection from "./helpers/arrangeNFTCollection";
+import NFTCard from "./Elements/NFTCard";
 
 class Collection extends Nullstack {
   nfts = {};
@@ -17,11 +18,8 @@ class Collection extends Nullstack {
     const result = await fcl
       .send([fcl.script(getNFTsScript), fcl.args([fcl.arg(addr, t.Address)])])
       .then(fcl.decode);
-    this.nfts = arrangeNFTCollection(
-      result.filter((a) => {
-        return a.id >= 18;
-      })
-    );
+    this.nfts = arrangeNFTCollection(result);
+    console.log(this.nfts);
   }
 
   async listForSale({ id }) {
@@ -59,26 +57,18 @@ class Collection extends Nullstack {
           </div>
         )}
         {Object.values(this.nfts).map((nfts) => {
-          const nft = nfts[0]
-          if (nft.id < 18) return null;
+          // console.log(nfts)
+          const nft = nfts[0];
           return (
-            <div class="border border-white rounded-md p-5" key={nft.id}>
-              <h1>#{nft.id}</h1>
-              <img
-                class="w-[100px] h-[100px]"
-                src={`https://ipfs.infura.io/ipfs/${nft.ipfsHash}`}
-                alt="won't work"
-              />
-              <h1>Name: {nft.metadata.name}</h1>
-              {addr === settings.adminAddress && (
-                <button
-                  onclick={() => this.listForSale({ id: nft.id })}
-                  class="bg-contrast hover:underline text-white font-bold py-2 px-4 rounded"
-                >
-                  Put it for sale!
-                </button>
-              )}
-            </div>
+            <NFTCard
+              name={nft.metadata.name}
+              //price={parseFloat(price).toFixed(3)}
+              imageSrc={`https://ipfs.infura.io/ipfs/${nft.ipfsHash}`}
+              addr={addr}
+              nftId={nft.id}
+              donateToId={nft.metadata.donateToId}
+              creatorName={nft.metadata.auth}
+            />
           );
         })}
       </div>

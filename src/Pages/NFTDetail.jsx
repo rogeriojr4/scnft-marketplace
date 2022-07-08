@@ -71,7 +71,7 @@ class NFTDetail extends Nullstack {
     }
   }
 
-  renderDetails({ user }) {
+  renderDetails({ user, settings }) {
     return (
       <div class="w-full flex flex-col items-center pt-20">
         <div class="flex flex-col gap-6">
@@ -79,9 +79,11 @@ class NFTDetail extends Nullstack {
             {this.nft?.metadata.name ||
               "Starving & Dehydrated African Crypto Kid"}
           </h1>
-          <p class="text-sm">
-            Owned by: <span class="text-contrast-secondary">{this.addr}</span>
-          </p>
+          {this.addr !== settings.adminAddress && (
+            <p class="text-sm">
+              Owned by: <span class="text-contrast-secondary">{this.addr}</span>
+            </p>
+          )}
           <p class="font-semibold text-sm">
             Edition {this.nft?.metadata.edition} of{" "}
             {this.nft?.metadata.maximumNumber || "unknown"}

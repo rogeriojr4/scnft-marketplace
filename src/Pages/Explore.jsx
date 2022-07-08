@@ -64,6 +64,7 @@ class Explore extends Nullstack {
                       addr={addr}
                       nftId={nftRef.id}
                       donateToId={nftRef.metadata.donateToId}
+                      creatorName={nftRef.metadata.auth}
                     />
                   );
                 })}

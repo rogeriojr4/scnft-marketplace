@@ -1,7 +1,7 @@
 export const setupMFAccountTx = `
 // Setup Account
 
-import MetaFoodToken from 0xe82c94d7f35b66c0
+import MetaFoodToken from 0x234f923cf4d3d3e7
 
 // This transaction configures an account to store and receive tokens defined by
 // the MetaFoodToken contract.

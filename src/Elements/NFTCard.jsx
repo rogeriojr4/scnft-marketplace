@@ -14,7 +14,7 @@ class NFTCard extends Nullstack {
       console.log("Could not find a logged user");
       return;
     }
-    console.log("settings.donationAddress", settings.donationAddress)
+    console.log("settings.donationAddress", settings.donationAddress);
     this.loading = true;
     try {
       const transactionId = await fcl
@@ -43,26 +43,33 @@ class NFTCard extends Nullstack {
     }
   }
 
-  render({ name, price, imageSrc }) {
+  render({ name, price, imageSrc, creatorName, nftId, addr }) {
     return (
-      <div class="flex flex-col items-center border-2 p-1">
+      <a
+        href={`/detail?nftId=${nftId}&addr=${addr}`}
+        class="flex flex-col items-center border-2 p-1"
+      >
         <img class="w-[285px] h-[267px]" src={imageSrc} alt="ALo" />
         <div class="mt-3 w-full p-2">
           <h3 class="font-bold text-md">{name}</h3>
-          {/* <h4 class="text-sm">Creator's name</h4> */}
-          {/* <br /> */}
-          <p class="text-sm">Price</p>
-          <div class="flex justify-between">
-            <div class="text-md flex items-center gap-2">
-              <MFLogo />
-              <span>{price}</span>
-            </div>
-            <StyledButton loading={this.loading} onclick={this.purchase}>
-              Buy Now
-            </StyledButton>
-          </div>
+          <h4 class="text-sm">{creatorName}</h4>
+          {price && (
+            <>
+              <br />
+              <p class="text-sm">Price</p>
+              <div class="flex justify-between">
+                <div class="text-md flex items-center gap-2">
+                  <MFLogo />
+                  <span>{price}</span>
+                </div>
+                <StyledButton loading={this.loading} onclick={this.purchase}>
+                  Buy Now
+                </StyledButton>
+              </div>
+            </>
+          )}
         </div>
-      </div>
+      </a>
     );
   }
 }

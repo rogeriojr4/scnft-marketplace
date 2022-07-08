@@ -5,28 +5,31 @@ import FadedBackground from "../Elements/FadedBackground";
 import Header from "../Elements/Header";
 
 class User extends Nullstack {
+  userAddress = "";
 
-  renderProfile({user}){
-    return(
+  prepare({ params, settings }) {
+    this.userAddress = params.addr || settings.adminAddress;
+  }
+
+  renderProfile({ user }) {
+    return (
       <div class="w-full px-56 flex items-center gap-12 z-10 sticky pb-12">
         <div class="w-[97px] h-[97px] bg-yellow-400 flex justify-center items-center">
           <MFLogo />
         </div>
-        {user?.addr}
+        {this.userAddress}
       </div>
-    )
+    );
   }
-  
-  
-  render({user}) {
+
+  render({ user }) {
     return (
       <div>
         <FadedBackground bgUrl="/assets/background/public-profile.png">
           <Header />
           <Profile />
         </FadedBackground>
-        {user && <Collection addr={user.addr} />}
-        
+        <Collection addr={this.userAddress} />
       </div>
     );
   }

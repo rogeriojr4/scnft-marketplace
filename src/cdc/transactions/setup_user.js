@@ -1,8 +1,8 @@
 export const setupUserTx = `
-import SCHNFT from 0x3135525943078f46
+import SCHNFT from 0x234f923cf4d3d3e7
 import NonFungibleToken from 0x631e88ae7f1d7c20
-import MetaFoodToken from 0x3135525943078f46
-import MetaFoodMarketplace from 0x3135525943078f46
+import MetaFoodToken from 0x234f923cf4d3d3e7
+import MetaFoodMarketplace from 0x234f923cf4d3d3e7
 
 transaction {
 

@@ -11,6 +11,7 @@ class Market extends Nullstack {
   loading = true;
 
   async hydrate({ addr }) {
+    console.log({addr})
     const result = await fcl
       .send([
         fcl.script(getSaleNFTsScript),
