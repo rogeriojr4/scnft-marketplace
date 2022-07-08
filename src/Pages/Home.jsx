@@ -17,12 +17,12 @@ class Home extends Nullstack {
           <Header />
           <FirstSection />
         </FadedBackground>
-        <div class="flex flex-col gap-36 bg-[url(/assets/background/elipses-home.svg)] bg-no-repeat bg-w-all-full">
-          <TrendingSection />
+        <div class="flex flex-col gap-36 bg-[url(/assets/background/elipses-home.svg)] bg-no-repeat ">
+          {/* <TrendingSection /> */}
           <ThirdSection />
-          <RecentSalesSection />
+          {/* <RecentSalesSection /> */}
           <FifthSection />
-          <TopSold />
+          {/* <TopSold /> */}
           <LastSection />
         </div>
       </div>

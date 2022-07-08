@@ -13,11 +13,11 @@ class LastSection extends Nullstack {
           What Uncle Ben and Uncle Satoshi mean is that you can use your “power”
           to change the world... by minting a few NFTs.
         </h2>
-        <div class="mt-6">
+        <a href="/explore" class="mt-6">
           <StyledButton secondary>
             BUY AN NFT TO A STARVING CHILD
           </StyledButton>
-        </div>
+        </a>
       </section>
     );
   }

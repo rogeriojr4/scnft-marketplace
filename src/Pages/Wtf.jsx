@@ -6,12 +6,12 @@ import LastSection from "../Elements/Home/LastSection";
 import StyledButton from "../Elements/StyledButton";
 
 class Wtf extends Nullstack {
-  render() {
+  render({ user, instances }) {
     return (
       <div class="flex w-full flex-col">
         <FadedBackground bgUrl="/assets/background/01-cropped-and-desaturated-1.png">
-          <Header />
-          <section class="flex flex-col gap-5 items-center py-36">
+          <Header key="header" />
+          <section class="flex flex-col gap-5 items-center py-36 sticky z-10">
             <h1 class="text-lg font-bold text-center">
               Treat you charity
               <br />
@@ -25,12 +25,18 @@ class Wtf extends Nullstack {
               Bringing attention to effective altruism, and reminding you that
               not all charities are created equal
             </h2>
-            <StyledButton>
-              <div class="text-sm flex gap-2">
-                <WalletIcon />
-                Connect your wallet
-              </div>
-            </StyledButton>
+            {!user?.addr && (
+              <StyledButton
+                onclick={() => {
+                  instances.header.logIn();
+                }}
+              >
+                <div class="text-sm flex gap-2">
+                  <WalletIcon />
+                  Connect your wallet
+                </div>
+              </StyledButton>
+            )}
           </section>
         </FadedBackground>
         <section class="w-full flex justify-center bg-black py-20">
@@ -55,14 +61,18 @@ class Wtf extends Nullstack {
               Note: All monetary proceeds from this project will be donated to
               charities deemed effective by GiveWell.
             </p>
-            <div class="w-fit">
+            <a
+              href="https://www.givingwhatwecan.org/best-charities-to-donate-to-2022"
+              target="blank"
+              class="w-fit"
+            >
               <StyledButton>
                 <div class="text-sm flex gap-2">
                   <WalletIcon />
                   Givin what we can
                 </div>
               </StyledButton>
-            </div>
+            </a>
           </div>
         </section>
         <LastSection />

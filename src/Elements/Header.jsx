@@ -10,12 +10,11 @@ import { userFirstSetupTx } from "../cdc/transactions/user_first_setup";
 import { getMFBalanceScript } from "../cdc/transactions/MFToken/get_balance";
 class Header extends Nullstack {
   loading = false;
-  
 
   async logIn() {
     this.loading = true;
     // log in through Blocto
-    await fcl.authenticate();
+    const user = await fcl.authenticate();
 
     try {
       /**
@@ -25,10 +24,10 @@ class Header extends Nullstack {
       await fcl
         .send([
           fcl.script(getMFBalanceScript),
-          fcl.args([fcl.arg(addr, t.Address)]),
+          fcl.args([fcl.arg(user.addr, t.Address)]),
         ])
         .then(fcl.decode);
-    } catch {
+    } catch (err) {
       const transactionId = await fcl
         .send([
           fcl.transaction(userFirstSetupTx),
@@ -145,7 +144,7 @@ class Header extends Nullstack {
 
   render() {
     return (
-      <div>
+      <div class="sticky z-10">
         <Profile />
         <header class="flex w-full justify-between py-10 px-56">
           <a href="/">

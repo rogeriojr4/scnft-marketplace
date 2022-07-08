@@ -29,19 +29,19 @@ class Admin extends Nullstack {
         >
           NFTs
         </a>
-        <a
+        {/* <a
           class="hover:underline w-full text-center py-2"
           style={router.url.includes("forSale") ? activeStyle : ""}
           href="/admin/forSale"
         >
           For Sale
-        </a>
+        </a> */}
         <a
           class="hover:underline w-full text-center py-2"
           style={router.url.includes("mintTokens") ? activeStyle : ""}
           href="/admin/mintTokens"
         >
-          Admin Faucet
+          Faucet
         </a>
         {/* <a class="hover:underline w-full text-center py-2" href="/admin/traits">
           Traits

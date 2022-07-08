@@ -13,9 +13,12 @@ class Tokens extends Nullstack {
   flows = "0.0";
   mfs = "0.0";
 
+  loding = false;
+
   async buyTokens() {
     if (!fcl.authz) return;
     try {
+      this.loading = true;
       console.log("starting");
       const transactionId = await fcl
         .send([
@@ -33,7 +36,7 @@ class Tokens extends Nullstack {
       const responseSealed = await fcl.tx(transactionId).onceSealed();
 
       console.log("responseSealed", responseSealed);
-      window.document.location.reload();
+      // window.document.location.reload();
     } catch (error) {
       console.log("Error minting files: ", error);
     } finally {
@@ -51,7 +54,7 @@ class Tokens extends Nullstack {
     this.flows = flows / 30;
   }
 
-  renderBuyMFs({ user }) {
+  renderBuyMFs({ user, instances }) {
     return (
       <section class="bg-[url(/assets/background/pink_elipse_right.svg)] w-full bg-fit bg-left bg-no-repeat flex items-center flex-col gap-6 py-36">
         <h1 class="text-lg text-center font-bold">Buy MFs</h1>
@@ -83,10 +86,19 @@ class Tokens extends Nullstack {
             </div>
           </div>
           <div class="mt-8">
-            {(user && user.addr) ? (
+            {user && user.addr ? (
               <StyledButton onclick={this.buyTokens}>Submit</StyledButton>
             ) : (
-              <StyledButton>Connect your wallet</StyledButton>
+              <StyledButton
+                onclick={() => {
+                  instances.header.logIn();
+                }}
+              >
+                <div class="text-sm flex gap-2">
+                  <WalletIcon />
+                  Connect your wallet
+                </div>
+              </StyledButton>
             )}
           </div>
         </div>
@@ -94,11 +106,16 @@ class Tokens extends Nullstack {
     );
   }
 
-  render() {
+  render({ user, instances }) {
     return (
       <div class="flex w-full flex-col">
+        {this.loading && (
+          <div class="fixed top-0 left-0 z-10 bg-[rgba(0,0,0,0.5)] w-[100vw] h-[100vh] text-9xl flex justify-center items-center">
+            LOADING . . .
+          </div>
+        )}
         <FadedBackground bgUrl="/assets/background/image-4.png">
-          <Header />
+          <Header key="header" />
           <section class="flex flex-col gap-1 items-center py-48">
             <h1 class="font-bold text-md">Meet our token</h1>
             <h2 class="p-2 bg-contrast text-md font-bold text-black">
@@ -109,12 +126,18 @@ class Tokens extends Nullstack {
               eiusmod tempor incididunt ut labore et dolore magna aliqua.
             </p>
             <div class="mt-8">
-              <StyledButton onclick={this.buyTokens}>
-                <div class="text-sm flex gap-2">
-                  <WalletIcon />
-                  Connect your wallet
-                </div>
-              </StyledButton>
+              {!user?.addr && (
+                <StyledButton
+                  onclick={() => {
+                    instances.header.logIn();
+                  }}
+                >
+                  <div class="text-sm flex gap-2">
+                    <WalletIcon />
+                    Connect your wallet
+                  </div>
+                </StyledButton>
+              )}
             </div>
           </section>
         </FadedBackground>

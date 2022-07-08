@@ -57,7 +57,6 @@ class Collection extends Nullstack {
           </div>
         )}
         {Object.values(this.nfts).map((nfts) => {
-          // console.log(nfts)
           const nft = nfts[0];
           return (
             <NFTCard
@@ -68,6 +67,7 @@ class Collection extends Nullstack {
               nftId={nft.id}
               donateToId={nft.metadata.donateToId}
               creatorName={nft.metadata.auth}
+              editions={nft.metadata.maximumNumber}
             />
           );
         })}

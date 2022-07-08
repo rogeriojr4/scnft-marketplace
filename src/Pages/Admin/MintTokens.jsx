@@ -4,6 +4,7 @@ import * as fcl from "@onflow/fcl";
 import * as t from "@onflow/types";
 
 import { mintMFTx } from "../../cdc/transactions/MFToken/mint_tokens";
+import FaucetIcon from "../../assets/FaucetIcon";
 
 class MintTokens extends Nullstack {
   loading = false;
@@ -45,8 +46,11 @@ class MintTokens extends Nullstack {
             LOADING . . .
           </div>
         )}
-        <div class="flex flex-col">
-          <label htmlFor={"userToMint"}>Account Address</label>
+        <h1 class="flex items-center text-lg font-bold gap-4">
+          <FaucetIcon /> Faucet
+        </h1>
+        <div class="flex flex-col max-w-sm">
+          <label htmlFor={"userToMint"}>Address</label>
           <input
             class="border border-white font-md text-white bg-black py-1 px-2"
             bind={this.userToMint}
@@ -54,7 +58,7 @@ class MintTokens extends Nullstack {
             name="userToMint"
           />
         </div>
-        <div class="flex flex-col">
+        <div class="flex flex-col max-w-sm">
           <label htmlFor={"amountToMint"}>Amount</label>
           <input
             class="border border-white font-md text-white bg-black py-1 px-2"
@@ -63,7 +67,9 @@ class MintTokens extends Nullstack {
             name="amountToMint"
           />
         </div>
-        <StyledButton onclick={this.mintTokens}>Mint Tokens</StyledButton>
+        <div class="max-w-[250px]">
+          <StyledButton secondary onclick={this.mintTokens}>Mint {'&'} Send</StyledButton>
+        </div>
       </div>
     );
   }

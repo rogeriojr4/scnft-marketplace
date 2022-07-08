@@ -6,6 +6,7 @@ import * as fcl from "@onflow/fcl";
 import * as t from "@onflow/types";
 import { getSaleNFTsScript } from "../cdc/scripts/get_sale_nfts";
 import arrangeNFTMarketPlace from "../helpers/arrangeNFTMarketPlaceCollection";
+import FadedBackground from "../Elements/FadedBackground";
 
 class Explore extends Nullstack {
   nfts = null;
@@ -30,15 +31,15 @@ class Explore extends Nullstack {
   render({ addr }) {
     return (
       <div class="flex w-full flex-col">
-        <Header />
-        <div class="flex flex-col gap-36 items-center">
-          <div class="w-full px-56 flex flex-col items-center">
+        <FadedBackground>
+          <Header />
+          <div class="flex flex-col gap-36 items-center sticky z-10">
             <div class="max-w-xl flex flex-col items-center">
               <h1 class="text-lg font-bold">Explore the starving children</h1>
               <div class="relative w-full border-b-2 border-white">
                 <SearchIcon clazz="absolute top-[10px] left-3" />
                 <input
-                  class="bg-gray-900 w-full text-md p-2 pl-14"
+                  class="bg-black w-full text-md p-2 pl-14"
                   type="search"
                   name="search"
                   id="search-input"
@@ -46,6 +47,10 @@ class Explore extends Nullstack {
                 />
               </div>
             </div>
+          </div>
+        </FadedBackground>
+        <div class="flex flex-col gap-36 items-center">
+          <div class="w-full px-56 flex flex-col items-center">
             <div class="flex flex-wrap w-full justify-around gap-8 mt-12 mb-2">
               {this.nfts &&
                 Object.entries(this.nfts).map(([id, { nftRef, price }]) => {
@@ -65,6 +70,7 @@ class Explore extends Nullstack {
                       nftId={nftRef.id}
                       donateToId={nftRef.metadata.donateToId}
                       creatorName={nftRef.metadata.auth}
+                      editions={nftRef.metadata.maximumNumber}
                     />
                   );
                 })}

@@ -7,6 +7,7 @@ import StyledButton from "../Elements/StyledButton";
 import * as fcl from "@onflow/fcl";
 import * as t from "@onflow/types";
 import { getOneNFTScript } from "../cdc/scripts/get_one_nft";
+import { purchaseWithDonationTx } from "../cdc/NewTransactions/purchase_with_donation";
 
 class NFTDetail extends Nullstack {
   nftId = "";
@@ -74,6 +75,11 @@ class NFTDetail extends Nullstack {
   renderDetails({ user, settings }) {
     return (
       <div class="w-full flex flex-col items-center pt-20">
+        {this.loading && (
+          <div class="fixed top-0 left-0 z-10 bg-[rgba(0,0,0,0.5)] w-[100vw] h-[100vh] text-9xl flex justify-center items-center">
+            LOADING . . .
+          </div>
+        )}
         <div class="flex flex-col gap-6">
           <h1 class="text-md font-bold">
             {this.nft?.metadata.name ||
@@ -101,7 +107,7 @@ class NFTDetail extends Nullstack {
           )}
           {user && user.addr && this.price > 0 && (
             <div class="max-w-[200px] my-6">
-              <StyledButton>
+              <StyledButton onclick={this.purchase}>
                 <div class="text-sm flex gap-2">
                   <WalletIcon />
                   Buy Now

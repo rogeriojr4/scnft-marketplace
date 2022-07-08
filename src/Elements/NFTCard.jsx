@@ -43,7 +43,7 @@ class NFTCard extends Nullstack {
     }
   }
 
-  render({ name, price, imageSrc, creatorName, nftId, addr }) {
+  render({ name, price, imageSrc, creatorName, nftId, addr, editions }) {
     return (
       <a
         href={`/detail?nftId=${nftId}&addr=${addr}`}
@@ -53,21 +53,25 @@ class NFTCard extends Nullstack {
         <div class="mt-3 w-full p-2">
           <h3 class="font-bold text-md">{name}</h3>
           <h4 class="text-sm">{creatorName}</h4>
-          {price && (
-            <>
-              <br />
-              <p class="text-sm">Price</p>
-              <div class="flex justify-between">
+
+          <>
+            <br />
+            <p class="text-sm">Price</p>
+            <div class="flex justify-between items-center">
+              {price && (
                 <div class="text-md flex items-center gap-2">
                   <MFLogo />
                   <span>{price}</span>
                 </div>
-                <StyledButton loading={this.loading} onclick={this.purchase}>
-                  Buy Now
-                </StyledButton>
+              )}
+              <div class="text-xs text-contrast">
+                {editions} Edition(s) Minted
               </div>
-            </>
-          )}
+              {/* <StyledButton loading={this.loading} onclick={this.purchase}>
+                  Buy Now
+                </StyledButton> */}
+            </div>
+          </>
         </div>
       </a>
     );
